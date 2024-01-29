@@ -1,0 +1,84 @@
+.container {
+  display: flex;
+  align-items: center;
+  margin: 50px;
+}
+
+.multi-select {
+  width: 250px;
+  height: 40px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.placeholder {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.icon {
+  width: 0;
+  height: 0;
+  border-left: 7.5px solid transparent;
+  border-right: 7.5px solid transparent;
+  margin: 10px;
+}
+
+.triangle-up {
+  border-bottom: 12.5px solid #555;
+}
+
+.triangle-down {
+  border-top: 12.5px solid #555;
+}
+
+.dropdown {
+  width: 250px;
+  height: 100px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  overflow: scroll;
+}
+
+.dropdown-item > * {
+  cursor: pointer;
+}
+
+.label {
+  margin-left: 5px;
+}
+
+.select-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.select-container > * {
+  cursor: pointer;
+}
+
+.right-container {
+  background-color: pink;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 20px;
+}
+
+.badge-container {
+  display: flex;
+}
+
+.badge {
+  background-color: orange;
+  border-radius: 20px;
+  padding: 2px 10px;
+  margin-right: 5px;
+}
