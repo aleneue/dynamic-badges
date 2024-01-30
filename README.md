@@ -6,6 +6,7 @@
 - Could it be more efficient in terms of number of renders?
 - What changes do you propose?
 - What best practices are missing?
+- Can we somehow dynamically get the width of the last badge (the one with the number)?
 
 ### `npm start`
 
