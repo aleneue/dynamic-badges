@@ -14,13 +14,13 @@ const App = () => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const rightDivRef = useRef<HTMLInputElement>(null);
-  const lastBadgeRef = useRef<HTMLInputElement>(null);
+  const leftDivRef = useRef<HTMLInputElement>(null);
 
   const [displayedBadges, setDisplayedBadges] = useState(selectedItems);
   const [badgeRefs, setBadgeRefs] = useState<RefObject<any>[]>([]);
   const { width } = useLayoutWindowSize();
 
-  const WIDTH_RESERVED_FOR_LAST_BADGE = 100
+  const WIDTH_RESERVED_FOR_LAST_BADGE = 100;
 
   useLayoutEffect(() => {
     setBadgeRefs(selectedItems.map(() => createRef()));
@@ -29,7 +29,7 @@ const App = () => {
 
   useLayoutEffect(() => {
     if (badgeRefs.length) {
-       const badge = document.getElementsByClassName("badge")[0];
+      const badge = document.getElementsByClassName("badge")[0];
       const badgeStyle = window.getComputedStyle(badge);
 
       const rightContainer =
@@ -38,11 +38,12 @@ const App = () => {
       const rightContainerXMargin = parseInt(
         rightContainerStyle.margin.split(" ")[1]
       );
-      
+
       let availableContainerWidth =
         (rightDivRef?.current?.offsetWidth ?? 0) -
         (leftDivRef?.current?.offsetWidth ?? 0) -
-        rightContainerXMargin - WIDTH_RESERVED_FOR_LAST_BADGE
+        rightContainerXMargin -
+        WIDTH_RESERVED_FOR_LAST_BADGE;
 
       let counter = 0;
 
