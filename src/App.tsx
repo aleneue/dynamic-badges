@@ -13,27 +13,36 @@ import { useLayoutWindowSize } from "./hooks/useLayoutWindowSize";
 const App = () => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const titleDivRef = useRef<HTMLInputElement>(null);
+  const rightDivRef = useRef<HTMLInputElement>(null);
+  const lastBadgeRef = useRef<HTMLInputElement>(null);
 
   const [displayedBadges, setDisplayedBadges] = useState(selectedItems);
   const [badgeRefs, setBadgeRefs] = useState<RefObject<any>[]>([]);
   const { width } = useLayoutWindowSize();
+
+  const WIDTH_RESERVED_FOR_LAST_BADGE = 100
 
   useLayoutEffect(() => {
     setBadgeRefs(selectedItems.map(() => createRef()));
     setDisplayedBadges(selectedItems);
   }, [selectedItems, width]);
 
-  const BADGE_RIGHT_MARGIN = 5;
-  const MULTISELECT_WIDTH = 300;
-  const LAST_BADGE_WIDTH = 70;
-
   useLayoutEffect(() => {
     if (badgeRefs.length) {
+       const badge = document.getElementsByClassName("badge")[0];
+      const badgeStyle = window.getComputedStyle(badge);
+
+      const rightContainer =
+        document.getElementsByClassName("right-container")[0];
+      const rightContainerStyle = window.getComputedStyle(rightContainer);
+      const rightContainerXMargin = parseInt(
+        rightContainerStyle.margin.split(" ")[1]
+      );
+      
       let availableContainerWidth =
-        (titleDivRef?.current?.offsetWidth ?? 0) -
-        MULTISELECT_WIDTH -
-        LAST_BADGE_WIDTH;
+        (rightDivRef?.current?.offsetWidth ?? 0) -
+        (leftDivRef?.current?.offsetWidth ?? 0) -
+        rightContainerXMargin - WIDTH_RESERVED_FOR_LAST_BADGE
 
       let counter = 0;
 
@@ -44,7 +53,7 @@ const App = () => {
         const badgeRef = badgeRefs[index];
         if (availableContainerWidth > badgeRef?.current?.offsetWidth) {
           availableContainerWidth -=
-            badgeRef?.current?.offsetWidth + BADGE_RIGHT_MARGIN;
+            badgeRef?.current?.offsetWidth + parseInt(badgeStyle.marginRight);
           badgesToDisplay.push(selectedItems[index]);
           counter++;
           continue;
@@ -96,7 +105,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <div>
+      <div ref={leftDivRef}>
         <SelectAll />
         <MultiSelect
           selectedItems={selectedItems}
@@ -105,7 +114,7 @@ const App = () => {
           handleChange={handleChange}
         />
       </div>
-      <div className="right-container" ref={titleDivRef}>
+      <div className="right-container" ref={rightDivRef}>
         {!!displayedBadges.length && (
           <div className="badge-container">
             {displayedBadges.map((item, i) => (
