@@ -8,6 +8,7 @@ import React, {
 import "./App.css";
 import { DEFAULT_DATA } from "./DEFAULT_DATA";
 import MultiSelect from "./components/MultiSelect";
+import SelectAll from "./components/SelectAll";
 import { useLayoutWindowSize } from "./hooks/useLayoutWindowSize";
 
 const App = () => {
@@ -88,26 +89,10 @@ const App = () => {
     setSelectedItems(updatedItems);
   };
 
-  const SelectAll = () => (
-    <div className="select-container">
-      <input
-        type="checkbox"
-        id="select-all"
-        name="select-all"
-        value="select-all"
-        onChange={handleSelectAll}
-        checked={isSelectAllOn}
-      />
-      <label htmlFor="select-all" className="label">
-        Select all
-      </label>
-    </div>
-  );
-
   return (
     <div className="container">
       <div ref={leftDivRef}>
-        <SelectAll />
+        <SelectAll checked={isSelectAllOn} onChange={handleSelectAll} />
         <MultiSelect
           selectedItems={selectedItems}
           toggleOpen={toggleOpen}
